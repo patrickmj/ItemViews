@@ -5,6 +5,8 @@ Omeka plugin to keep track of item views and display recent and popular items
 
 The plugin stores data about the views of items. When an item is viewed (i.e., it's `show` page is loaded), the plugin stores the datetime, and increments the number of views. No user data is recorded.
 
+Inspired by this [twitter thread about Unstacked](https://twitter.com/trewkat/status/882715204856954880). Thanks for the idea/inspiration!
+
 ## Usage
 
 The plugin adds four functions for displaying the data:
