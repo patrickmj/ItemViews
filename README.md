@@ -1,5 +1,5 @@
 # ItemViews
-Omeka plugin to keep track of item views and display recent and popular items
+Omeka plugin to keep track of item views and display recently viewed and popular items
 
 ## About
 
