@@ -8,6 +8,7 @@ class ItemViewsPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_hooks = array(
         'install',
         'uninstall',
+        'upgrade'
         
     );
     
@@ -16,7 +17,7 @@ class ItemViewsPlugin extends Omeka_Plugin_AbstractPlugin
         $db = $this->_db;
         $sql = "
             CREATE TABLE IF NOT EXISTS `$db->ItemView` (
-              `id` int(11) UNSIGNED NOT NULL,
+              `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
               `item_id` int(11) UNSIGNED NOT NULL,
               `last_viewed` datetime NOT NULL,
               `total_views` int(10) UNSIGNED NOT NULL,
@@ -27,10 +28,25 @@ class ItemViewsPlugin extends Omeka_Plugin_AbstractPlugin
         $db->query($sql);
     }
     
+    public function hookUpgrade($args)
+    {
+        $oldVersion = $args['old_version'];
+        $newVersion = $args['new_version'];
+        
+        if (version_compare($oldVersion, '1.0.1', '<')) {
+            $db = $this->_db;
+            $sql = "
+                ALTER TABLE `$db->ItemView` CHANGE `id` `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+                   ";
+            $db->query($sql);
+        }
+    }
+    
     public function hookUninstall()
     {
-        $sql = "DROP TABLE `$db->ItemView;";
-        $this->_db->query($sql);
+        $db = $this->_db;
+        $sql = "DROP TABLE `$db->ItemView`;";
+        $db->query($sql);
     }
     
     public function setUp()
