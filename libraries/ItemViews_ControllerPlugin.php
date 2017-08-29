@@ -5,7 +5,6 @@ class ItemViews_ControllerPlugin extends Zend_Controller_Plugin_Abstract
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         $params = $request->getParams();
-        debug(print_r($params, true));
         if ($params['controller'] == 'items' && $params['action'] == 'show') {
             $db = get_db();
             $itemViewRecord = $db->getTable('ItemView')->findByItem($params['id']);
